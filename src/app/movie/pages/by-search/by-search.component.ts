@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { movieService } from '../../services/movie.service';
+import { Search, MultipleSearch } from '../../interface/movie.interface';
 
 @Component({
   selector: 'app-by-search',
@@ -6,11 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class BySearchComponent implements OnInit {
+export class BySearchComponent {
 
-  constructor() { }
+  term : string = '';
+  movies! : MultipleSearch;
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private movieService : movieService
+  ) { }
+
+    search( term : string ){
+      this.term = term;
+      this.movieService.searchMovie( this.term )
+        .subscribe( (resp) => {
+          console.log(resp);
+          this.movies = resp;
+          console.log(this.movies.Search);
+        }, (err) => {
+          this.movies.Search = [] 
+        })
+    }
 
 }
