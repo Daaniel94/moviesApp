@@ -11,7 +11,9 @@ import { Search, MultipleSearch } from '../../interface/movie.interface';
 export class BySearchComponent {
 
   term : string = '';
-  movies! : MultipleSearch;
+  multiplesearch! : MultipleSearch;
+  movies! : Search[];
+  isErr : boolean = false;
 
   constructor(
     private movieService : movieService
@@ -19,13 +21,18 @@ export class BySearchComponent {
 
     search( term : string ){
       this.term = term;
+      this.isErr = false;
       this.movieService.searchMovie( this.term )
         .subscribe( (resp) => {
-          console.log(resp);
-          this.movies = resp;
-          console.log(this.movies.Search);
+          this.multiplesearch = resp;
+          this.movies = this.multiplesearch.Search;
+          if( this.multiplesearch.Response === 'False'){
+            this.isErr = true;
+          }
         }, (err) => {
-          this.movies.Search = [] 
+          this.movies = [] 
+          this.isErr = true;
+          console.log(err);
         })
     }
 

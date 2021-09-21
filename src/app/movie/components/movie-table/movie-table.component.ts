@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Search } from '../../interface/movie.interface';
 
 @Component({
   selector: 'app-movie-table',
@@ -6,11 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class MovieTableComponent implements OnInit {
+export class MovieTableComponent{
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input()
+  movies : Search[] = [];
 
 }

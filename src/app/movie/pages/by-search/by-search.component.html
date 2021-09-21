@@ -11,4 +11,13 @@
             </app-movie-input>
         </div>
     </div>
+    <hr>
+</div>
+<div *ngIf="isErr" class="alert alert-danger">
+    Movies not found with {{ term }}
+</div>
+<div *ngIf="!isErr && multiplesearch" class="row">
+    <div class="col">
+        <app-movie-table [movies]="movies"></app-movie-table>
+    </div>
 </div>
